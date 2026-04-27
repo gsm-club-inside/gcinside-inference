@@ -24,6 +24,7 @@ class Features(BaseModel):
 class PredictRequest(BaseModel):
     requestId: str = Field(..., min_length=1, max_length=128)
     action: str = Field(..., min_length=1, max_length=64)
+    modelVersion: Optional[str] = Field(default=None, min_length=1, max_length=128)
     subject: Subject = Field(default_factory=Subject)
     features: Features = Field(default_factory=Features)
 

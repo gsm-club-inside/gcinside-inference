@@ -60,6 +60,6 @@ class MockRiskModel(RiskModel):
 
         return PredictResponse(
             mlScore=_clamp01(score),
-            modelVersion=self.version,
+            modelVersion=req.modelVersion or self.version,
             reasons=reasons,
         )

@@ -66,6 +66,22 @@ def test_predict_high_risk():
     assert "burst_requests_60" in body["reasons"]
 
 
+def test_predict_requested_model_version():
+    c = TestClient(app)
+    r = c.post(
+        "/v1/predict-risk",
+        json={
+            "requestId": "req-model",
+            "action": "vote",
+            "modelVersion": "candidate-risk-v2",
+            "subject": {"userId": "1"},
+            "features": {},
+        },
+    )
+    assert r.status_code == 200
+    assert r.json()["modelVersion"] == "candidate-risk-v2"
+
+
 def test_predict_unknown_action():
     c = TestClient(app)
     r = c.post(
