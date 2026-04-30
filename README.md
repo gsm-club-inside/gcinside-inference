@@ -78,6 +78,15 @@ pytest
 ruff check app
 ```
 
+## GBDT 모델 사용
+
+`gcinside-ml-pipeline`의 `train-gbdt`로 만든 pickle artifact를 `MODEL_PATH`에 지정하면 mock 대신 LightGBM/XGBoost/sklearn GBDT 모델을 로드합니다.
+
+```bash
+pip install -r requirements-ml.txt
+MODEL_PATH=../gcinside-ml-pipeline/risk-gbdt-v1.pkl uvicorn app.main:app --host 0.0.0.0 --port 8081
+```
+
 ## 운영 메모
 
 - 메인 앱(`gcinside-app`) 의 client 는 짧은 timeout (기본 250ms) + 1 retry 로 호출하고, 실패하면 rule 기반 fallback 합니다. AI 장애가 메인 서비스 장애로 번지지 않도록 설계되어 있습니다.
